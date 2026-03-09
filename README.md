@@ -14,6 +14,19 @@ Most training datasets are too clean and too small. This project focuses on the 
 ## Current status
 Planning and specification phase.
 
+
+## Implementation stack
+Primary language: **R**. Core required packages: **dplyr** and **rio**.
+
+Recommended additional packages to minimize custom code:
+- **purrr** and **tidyr** for iteration and reshaping workflows,
+- **tibble** for clean tabular structures,
+- **stringr** and **lubridate** for robust string/time handling,
+- **jsonlite** and **yaml** for scenario/config interchange,
+- **arrow** for low-friction Parquet support,
+- **testthat** for deterministic tests,
+- **withr** for scoped seed/runtime state management.
+
 ## Source of truth (planning docs)
 - `PROJECT_CHARTER.md` — problem framing, goals, non-goals, success criteria.
 - `REQUIREMENTS.md` — functional/non-functional requirements and acceptance criteria.

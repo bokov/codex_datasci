@@ -2,8 +2,10 @@
 
 ## Now
 - [ ] Confirm MVP domain (e.g., supply chain, clinical trials, e-commerce).
-- [ ] Choose implementation language/runtime.
+- [x] Choose implementation language/runtime (R).
 - [ ] Define v0 scenario config schema.
+- [ ] Create dependency lock strategy (e.g., `renv`) and base project scaffold.
+- [ ] Add baseline package imports (`dplyr`, `rio`, `tidyr`, `purrr`, `testthat`).
 - [ ] Define v0 event schema and manifest schema.
 - [ ] Implement minimal runner skeleton.
 - [ ] Implement first three nodes and one linkage challenge.

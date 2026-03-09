@@ -42,6 +42,17 @@ System SHALL support (at minimum):
 - NFR-4: Testability via unit + scenario regression tests.
 - NFR-5: Reasonable performance for classroom-scale runs.
 
+- NFR-6: Language and dependency baseline
+  - Implementation SHALL use **R** as the primary language.
+  - Project SHALL require **dplyr** and **rio**.
+  - Additional libraries SHOULD be preferred when they replace substantial custom utility code and improve maintainability.
+
+## Recommended dependency set (initial)
+- Data manipulation: `dplyr`, `tidyr`, `purrr`, `tibble`
+- IO/config: `rio`, `jsonlite`, `yaml`, `arrow`
+- Utilities: `stringr`, `lubridate`, `glue`, `cli`
+- Validation/testing: `checkmate`, `testthat`, `withr`
+
 ## Acceptance criteria (MVP)
 - Define and execute at least one complete scenario via config.
 - Produce at least three linked datasets with intentional quality issues.

@@ -2,6 +2,7 @@
 
 ## Phase 0: Foundations (Now)
 - Finalize requirements and architecture docs.
+- Set up R scaffolding (`renv`, package structure, lint/test config).
 - Choose initial domain for first scenario.
 - Define schema and run manifest format.
 

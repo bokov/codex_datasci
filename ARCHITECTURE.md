@@ -44,3 +44,11 @@
 - Keep node API uniform; let wiring/patterns encode behavior differences.
 - Prefer explicit configuration over hidden defaults.
 - Separate “world truth” from “what is observed by analysts.”
+
+
+## R package conventions
+- Use `dplyr`/`tidyr`/`purrr` pipelines for node and transformation logic before writing custom helper frameworks.
+- Use `rio` for import/export adapters and `arrow` for Parquet outputs to reduce bespoke IO code.
+- Use `jsonlite`/`yaml` for scenario and manifest serialization.
+- Use `checkmate` for runtime input validation and `cli`/`glue` for consistent diagnostics.
+- Use `withr` and explicit seeding patterns for deterministic run behavior.
