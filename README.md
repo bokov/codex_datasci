@@ -51,6 +51,7 @@ The current MVP execution plan is grounded in the Easter egg factory v0 domain c
 - `TASKS.md` — actionable to-do list.
 - `REPRODUCIBILITY_WORKFLOW.md` — practical latest-only dependency workflow (no renv lockfile).
 - `STATE_LOG_AND_MANIFEST_V0.md` — concrete v0 logging and run-manifest schema.
+- `V0_IMPLEMENTATION_CHECKPOINT.md` — frozen acceptance target and invariants before full v0 feature implementation.
 - `DOMAIN_EASTER_EGG_FACTORY_V0.md` — fixed v0 domain boundaries and node contract table.
 - `TEST_CONTRACT_EASTER_EGG_FACTORY_V0.md` — step-linked test obligations and done criteria.
 - `CONFIG_SCHEMA_EASTER_EGG_FACTORY_V0.md` — v0 configuration schema and valid/invalid examples.

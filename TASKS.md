@@ -22,6 +22,8 @@
 
 ## Next
 - [x] Convert skeleton scripts into package-style exported functions + baseline package checks.
+- [x] Freeze full v0 implementation acceptance checklist (`V0_IMPLEMENTATION_CHECKPOINT.md`).
+- [x] Add invariant/ID test scaffolding for full v0 implementation (currently marked pending via skipped tests).
 - [ ] Add richer invariant tests for staffing and inventory policies in the end-to-end scenario.
 - [ ] Add reproducibility test harness (seed replay tests).
 - [ ] Add data quality perturbation module (post-MVP).

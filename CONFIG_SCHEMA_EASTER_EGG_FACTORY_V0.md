@@ -20,6 +20,25 @@ Each `nodes[[node_id]]` must include:
   - key = alias used in expressions,
   - value = `{ node: <source_node_id>, column: <source_column_name> }`.
 
+
+## Required v0 node set (full scenario target)
+The full Easter egg factory v0 scenario is expected to define these nodes:
+- `supplier_batches`
+- `inventory`
+- `reorder_policy`
+- `operator_shifts`
+- `machine_config`
+- `staffing`
+- `production`
+
+## Required ID fields in node outputs
+At minimum, scenario outputs should include stable unique IDs for:
+- `supplier_id`
+- `ingredient_id`
+- `operator_id`
+- `machine_id`
+- `recipe_id` or `egg_type`
+
 ## Evaluation context symbols
 Expressions may reference:
 - `tick`

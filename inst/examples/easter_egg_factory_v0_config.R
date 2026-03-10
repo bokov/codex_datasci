@@ -71,3 +71,35 @@ invalid_easter_egg_config <- function() {
   cfg$nodes$production$expressions$eggs_produced <- "global_state$base_rate * mystery_symbol"
   cfg
 }
+
+# Alignment-only target shape for full v0 implementation planning.
+# This is not yet used by package tests; it documents the intended full node/ID model.
+easter_egg_factory_v0_target_shape_config <- function() {
+  list(
+    seed = 42,
+    ticks = 100,
+    node_order = c(
+      "supplier_batches", "inventory", "reorder_policy",
+      "operator_shifts", "machine_config", "staffing", "production"
+    ),
+    global_state_fields = c("reorder_threshold", "base_rate"),
+    node_state_fields = list(
+      supplier_batches = c("supplier_id", "ingredient_id"),
+      inventory = c("ingredient_id", "start_qty"),
+      reorder_policy = c("ingredient_id", "target_batch_qty"),
+      operator_shifts = c("operator_id", "shift_start", "shift_length", "quality"),
+      machine_config = c("machine_id", "egg_type", "required_ingredients", "machine_quality"),
+      staffing = c("machine_id"),
+      production = c("machine_id", "egg_type")
+    ),
+    nodes = list(
+      supplier_batches = list(expressions = list(), inputs = list()),
+      inventory = list(expressions = list(), inputs = list()),
+      reorder_policy = list(expressions = list(), inputs = list()),
+      operator_shifts = list(expressions = list(), inputs = list()),
+      machine_config = list(expressions = list(), inputs = list()),
+      staffing = list(expressions = list(), inputs = list()),
+      production = list(expressions = list(), inputs = list())
+    )
+  )
+}

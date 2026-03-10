@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 - Added dependency-workflow guidance and documented v0 state-log/run-manifest schemas.
+- Added a v0 implementation checkpoint defining required node/ID/invariant acceptance before full feature build-out.
+- Added pending (skipped) domain invariant/ID tests to drive test-first implementation of the full v0 scenario.
 - Added weekly GitHub Actions test workflow to run package tests against latest dependencies.
 
 ### Changed
