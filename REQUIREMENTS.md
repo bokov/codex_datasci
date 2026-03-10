@@ -33,7 +33,7 @@ System SHALL support (at minimum):
 - System SHALL support named scenarios with metadata and execution parameters.
 
 ### FR-8: Export
-- System SHALL export outputs to common formats (CSV/Parquet minimum).
+- System SHALL export outputs to common formats (CSV minimum).
 
 ## Non-functional requirements
 - NFR-1: Deterministic replay under fixed seed/config.
