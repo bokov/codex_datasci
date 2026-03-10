@@ -6,13 +6,13 @@
 - [ ] Define v0 scenario config schema.
 - [ ] Create dependency lock strategy (e.g., `renv`) and base project scaffold.
 - [ ] Add baseline package imports (`dplyr`, `rio`, `tidyr`, `purrr`, `testthat`).
-- [ ] Define v0 event schema and manifest schema.
+- [ ] Define v0 state-log schema and run manifest schema.
 - [ ] Implement minimal runner skeleton.
-- [ ] Implement first three nodes and one linkage challenge.
+- [ ] Implement first three nodes with full-state logging support.
 
 ## Next
 - [ ] Add reproducibility test harness (seed replay tests).
-- [ ] Add data quality perturbation module.
+- [ ] Add data quality perturbation module (post-MVP).
 - [ ] Add one instructor-facing exercise package.
 - [ ] Add benchmark metrics (row counts, null rates, linkage precision).
 

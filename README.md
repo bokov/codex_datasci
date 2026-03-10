@@ -1,15 +1,15 @@
 # codex_datasci
 
-Synthetic data science training platform that simulates realistic, messy, multi-source data-generating systems.
+Synthetic data science training platform for configurable node-based simulation networks.
 
 ## Why this exists
-Most training datasets are too clean and too small. This project focuses on the part of data science practitioners actually spend time on:
-- cleaning and normalization,
-- cross-system joins,
-- temporal alignment,
-- granularity mismatches,
-- lineage/provenance uncertainty,
-- and modeling under imperfect observations.
+The immediate goal is to build a deterministic simulation core that is easy to reason about and extend:
+- configurable node-based network definitions,
+- deterministic tick-based execution,
+- shared + node-local state,
+- and full per-node state logging at every tick.
+
+Data quality perturbations (noise, missingness, corruption, etc.) remain on the medium-term roadmap after the core loop is stable.
 
 ## Current status
 Planning and specification phase.

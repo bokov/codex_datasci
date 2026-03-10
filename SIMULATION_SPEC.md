@@ -30,3 +30,15 @@ Define execution semantics for scenario simulation.
 ## Validation hooks
 - Invariants at tick boundaries (e.g., no negative inventory unless explicitly allowed).
 - Optional sanity checks for event volume, null rates, key uniqueness.
+
+
+## Logging contract (current scope)
+- At every tick, each node MUST emit a full-state log record.
+- Log record minimum fields: `run_id`, `scenario_id`, `tick`, `node_id`, `state`.
+- State logs are append-only and ordered deterministically by tick, then node order.
+- Partial or sampled logging is out of current scope.
+
+## Out of current scope
+- Noise/missingness/corruption injection.
+- Imperfect linkage and schema drift simulation.
+- Partial-observability capture modes.

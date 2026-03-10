@@ -1,10 +1,10 @@
 # Project Charter
 
 ## Vision
-Create a configurable simulation engine that generates realistic, interconnected, messy datasets for data science training.
+Create a configurable node-based simulation engine with deterministic tick execution and full per-node state logging.
 
 ## Problem statement
-Existing educational datasets frequently omit real-world friction (schema drift, delayed arrival, inconsistent IDs, changing definitions, missing data, noisy labels, many-to-many relationships, and temporal ambiguity).
+The project needs a stable simulation core first: configurable node wiring, explicit state evolution, and complete per-node state logs per tick for traceability.
 
 ## Target users
 - Self-learners in data science/statistics.
@@ -13,10 +13,10 @@ Existing educational datasets frequently omit real-world friction (schema drift,
 
 ## Goals
 1. Simulate multiple interacting data-generating processes (DGPs).
-2. Produce both event-level and derived tabular data with realistic imperfections.
-3. Support configurable observation points (partial observability, different system boundaries).
+2. Log each node's full state at each tick.
+3. Support configurable observation and export of run artifacts.
 4. Enable repeatable scenarios with seed control and scenario configs.
-5. Provide curated exercises that emphasize data wrangling and inference under uncertainty.
+5. Establish an extensible base for medium-term realism features.
 
 ## Non-goals (initially)
 - Photorealistic domain simulation.
@@ -26,14 +26,14 @@ Existing educational datasets frequently omit real-world friction (schema drift,
 
 ## Success criteria
 - Users can generate at least 3 distinct training scenarios from config files.
-- At least 10 realistic failure/friction modes are supported.
+- Node state logs are emitted for every node at every tick.
 - Scenarios are reproducible from seed + config.
-- Exercises can be solved end-to-end with documented expected learning outcomes.
+- At least one end-to-end scenario can be inspected tick-by-tick from logs.
 
 ## Risks
 - Overengineering before first runnable MVP.
-- Excess complexity reducing pedagogical clarity.
-- Simulation realism outrunning validation discipline.
+- Scope creep into realism features before the core loop is validated.
+- Excess complexity reducing debuggability in early iterations.
 
 ## Mitigations
 - MVP-first roadmap with explicit scope caps.

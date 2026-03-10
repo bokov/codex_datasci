@@ -1,25 +1,24 @@
 # Data Model (Draft)
 
 ## Modeling approach
-Use an event-first model with derived tables.
+Use a state-log-first model for MVP, with optional event/derived tables in later phases.
 
 ## Core concepts
 - **Entity**: persistent object (e.g., customer, order, supplier).
 - **Event**: immutable fact at time `t` (e.g., order_placed).
 - **Snapshot**: materialized state view at a time boundary.
-- **Observation**: what a downstream system actually sees (can be delayed/noisy/incomplete).
+- **StateLog**: full serialized node state captured at each tick for deterministic inspection.
 
-## Event schema baseline
+## State log schema baseline (MVP)
 Required fields:
-- `event_id` (globally unique)
-- `event_type`
-- `event_time` (source time)
-- `ingest_time` (observation time)
-- `source_node`
-- `entity_keys` (one or more IDs)
-- `payload` (domain-specific attributes)
-- `quality_flags` (missing/corrupt/imputed/etc.)
 - `run_id`, `scenario_id`, `seed`
+- `tick`
+- `node_id`
+- `state` (serialized full node state)
+- `logged_at`
+
+## Event schema (later phase)
+Event-first outputs are planned after state-log MVP stabilization.
 
 ## ID conventions
 - Stable entity IDs where appropriate.
@@ -30,7 +29,7 @@ Required fields:
 - Distinguish event occurrence time vs arrival/ingestion time.
 - Support late-arriving and out-of-order data.
 
-## Data quality simulation primitives
+## Data quality simulation primitives (later roadmap phase)
 - Missingness (MCAR/MAR-style approximations).
 - Corruption/noise injection.
 - Duplication and de-dup challenges.

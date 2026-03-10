@@ -7,10 +7,10 @@
 - Define schema and run manifest format.
 
 ## Phase 1: MVP engine
-- Implement minimal runner + state + node interface.
-- Implement 3–5 basic node types.
-- Add event capture and CSV export.
-- Deliver one end-to-end reproducible scenario.
+- Implement minimal runner + state + uniform node interface.
+- Implement configurable node network loading and deterministic execution order.
+- Add full per-node state logging at each tick + CSV/Parquet export.
+- Deliver one end-to-end reproducible scenario with tick-by-tick state inspection.
 
 ## Phase 2: Realism features
 - Add delay, missingness, corruption, and drift knobs.

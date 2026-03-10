@@ -18,19 +18,19 @@ System SHALL support (at minimum):
 - stateful behavior across ticks,
 - hierarchical instantiation (one-to-many entity creation).
 
-### FR-4: Data capture points
-- Users SHALL configure where observations/logs are captured.
-- Captures SHALL support raw events and transformed datasets.
+### FR-4: Full per-node state logging
+- System SHALL record each node's full state at every tick.
+- Logs SHALL include node identifier, tick index, and serialized state payload.
 
-### FR-5: Realism knobs
-- Users SHALL tune noise, missingness, delay, corruption, and drift parameters.
-- Config SHALL permit per-node and global defaults.
+### FR-5: Configurable capture/export
+- Users SHALL configure output destinations/formats for state logs.
+- Captures SHALL support full-run export for deterministic replay and inspection.
 
 ### FR-6: Reproducibility
 - Scenario runs SHALL be reproducible from seed + config + code version.
 
 ### FR-7: Scenario packaging
-- System SHALL support named scenarios with metadata and expected learning outcomes.
+- System SHALL support named scenarios with metadata and execution parameters.
 
 ### FR-8: Export
 - System SHALL export outputs to common formats (CSV/Parquet minimum).
@@ -55,6 +55,6 @@ System SHALL support (at minimum):
 
 ## Acceptance criteria (MVP)
 - Define and execute at least one complete scenario via config.
-- Produce at least three linked datasets with intentional quality issues.
+- Emit per-tick full-state logs for every node in the scenario.
 - Run replay yields identical outputs under same seed.
-- At least one built-in exercise with rubric and reference solution outline.
+- Exported logs can be used to inspect node evolution tick-by-tick.
