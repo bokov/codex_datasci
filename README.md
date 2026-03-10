@@ -49,7 +49,7 @@ The current MVP execution plan is grounded in the Easter egg factory v0 domain c
 - `SIMULATION_SPEC.md` — simulation semantics (nodes, ticks, state, reproducibility).
 - `ROADMAP.md` — phase-by-phase delivery plan.
 - `TASKS.md` — actionable to-do list.
-- `REPRODUCIBILITY_WORKFLOW.md` — practical renv + package dependency workflow.
+- `REPRODUCIBILITY_WORKFLOW.md` — practical latest-only dependency workflow (no renv lockfile).
 - `STATE_LOG_AND_MANIFEST_V0.md` — concrete v0 logging and run-manifest schema.
 - `DOMAIN_EASTER_EGG_FACTORY_V0.md` — fixed v0 domain boundaries and node contract table.
 - `TEST_CONTRACT_EASTER_EGG_FACTORY_V0.md` — step-linked test obligations and done criteria.
@@ -66,6 +66,9 @@ Build/check commands from repo root:
 
 Run test suite directly:
 - `Rscript tests/testthat.R`
+
+CI coverage:
+- Weekly scheduled GitHub Actions run (`.github/workflows/weekly-tests.yml`) executes `Rscript tests/testthat.R` against latest dependencies.
 
 ## Working agreements
 - Keep docs in sync with implementation.
