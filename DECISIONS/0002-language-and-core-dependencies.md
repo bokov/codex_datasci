@@ -23,3 +23,10 @@ When adding a new package:
 ## Consequences
 - Project examples, interfaces, and tests should assume an R-first workflow.
 - Existing planning docs should be updated in review to reflect this decision where language/runtime is referenced.
+
+## Preferred maintenance-minimizing stack for expression runtime
+- `dplyr` + `rlang` for expression evaluation and data-masked execution.
+- `purrr` for deterministic node iteration.
+- `checkmate` + `cli`/`glue` for validator and error reporting.
+- `jsonlite`/`yaml` for config ingestion.
+- `rio` for export (CSV required; additional formats optional).

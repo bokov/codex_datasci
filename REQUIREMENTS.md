@@ -34,6 +34,27 @@ System SHALL support (at minimum):
 
 ### FR-8: Export
 - System SHALL export outputs to common formats (CSV minimum).
+- Parquet support SHOULD be optional and implementation-driven (not required for MVP).
+
+### FR-9: Orchestrator-first runtime boundary
+- Custom engine code SHALL be limited to orchestration concerns: dependency ordering, context assembly, deterministic execution, config validation, and logging/export.
+- Node business logic SHALL be expression-configured rather than per-node bespoke imperative code.
+
+### FR-10: Inter-node communication contract
+- Inter-node communication SHALL default to declared access to upstream node log-table columns.
+- Additional communication mechanisms are out of MVP scope unless approved by ADR.
+
+### FR-11: Single evaluator path
+- Runtime SHALL use one expression evaluation path for configured node expressions.
+- Preferred evaluator stack: `rlang` tidy-eval + `dplyr` data-masking semantics.
+
+### FR-12: Scalar output contract
+- Each configured expression SHALL produce exactly one scalar value per tick.
+- Non-scalar outputs MUST fail with actionable diagnostics.
+
+### FR-13: Canonical symbol registry
+- Config validator and runtime context builder SHALL share one canonical symbol registry per node/tick.
+- Symbol resolution rules SHALL not be duplicated across independent code paths.
 
 ## Non-functional requirements
 - NFR-1: Deterministic replay under fixed seed/config.
@@ -41,6 +62,7 @@ System SHALL support (at minimum):
 - NFR-3: Extensibility for new node types/domains.
 - NFR-4: Testability via unit + scenario regression tests.
 - NFR-5: Reasonable performance for classroom-scale runs.
+- NFR-7: Dependency-over-custom preference (prefer mature libraries over bespoke utility code when behavior is equivalent).
 
 - NFR-6: Language and dependency baseline
   - Implementation SHALL use **R** as the primary language.
@@ -58,3 +80,6 @@ System SHALL support (at minimum):
 - Emit per-tick full-state logs for every node in the scenario.
 - Run replay yields identical outputs under same seed.
 - Exported logs can be used to inspect node evolution tick-by-tick.
+- MVP implementation demonstrates a single evaluator path for configured expressions.
+- Inter-node data access uses declared log-table input mappings.
+- Scalar-output violations fail with actionable errors.

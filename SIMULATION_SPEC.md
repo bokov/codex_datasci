@@ -42,3 +42,18 @@ Define execution semantics for scenario simulation.
 - Noise/missingness/corruption injection.
 - Imperfect linkage and schema drift simulation.
 - Partial-observability capture modes.
+
+## Evaluator and communication constraints (MVP)
+- Inter-node communication is limited to declared log-table input references.
+- A separate event bus mechanism is out of MVP scope.
+- Runtime uses a single expression evaluator path for configured R expressions.
+- Each expression result must be scalar at each tick.
+
+## Canonical symbol registry
+- Before execution, build a per-node registry of resolvable symbols from:
+  - global state,
+  - node-local state,
+  - node log history aliases,
+  - declared inter-node input aliases,
+  - approved built-in functions/namespaces.
+- Use this same registry for both load-time validation and runtime context hydration.

@@ -27,6 +27,16 @@ Recommended additional packages to minimize custom code:
 - **testthat** for deterministic tests,
 - **withr** for scoped seed/runtime state management.
 
+## Maintenance-minimizing implementation strategy
+To minimize maintained code volume, implementation should be orchestration-first:
+- custom code handles dependency ordering, context assembly, deterministic execution, validation, and logging/export,
+- node computation remains config-driven (mutate-like expressions),
+- inter-node communication defaults to declared access to other nodes' log-table columns,
+- runtime uses a single expression evaluator path (`rlang` tidy-eval),
+- each expression must produce one scalar per tick,
+- CSV export is required for MVP (Parquet is optional),
+- validator/runtime share one canonical symbol registry.
+
 ## Source of truth (planning docs)
 - `PROJECT_CHARTER.md` — problem framing, goals, non-goals, success criteria.
 - `REQUIREMENTS.md` — functional/non-functional requirements and acceptance criteria.

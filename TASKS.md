@@ -8,6 +8,11 @@
 - [ ] Add baseline package imports (`dplyr`, `rio`, `tidyr`, `purrr`, `testthat`).
 - [ ] Define v0 state-log schema and run manifest schema.
 - [ ] Implement minimal runner skeleton.
+- [ ] Implement expression-configured node runtime (no bespoke per-node imperative classes).
+- [ ] Implement declared inter-node log-table input mapping as the only MVP communication mode.
+- [ ] Implement single evaluator path using `rlang` tidy-eval.
+- [ ] Implement canonical symbol registry shared by validator and runtime.
+- [ ] Enforce scalar-per-expression outputs with actionable errors.
 - [ ] Implement first three nodes with full-state logging support.
 
 ## Next

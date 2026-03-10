@@ -9,7 +9,8 @@
 ## Phase 1: MVP engine
 - Implement minimal runner + state + uniform node interface.
 - Implement configurable node network loading and deterministic execution order.
-- Add full per-node state logging at each tick + CSV/Parquet export.
+- Add full per-node state logging at each tick + CSV export (Parquet optional).
+- Implement single evaluator path (`rlang` tidy-eval) + canonical symbol registry.
 - Deliver one end-to-end reproducible scenario with tick-by-tick state inspection.
 
 ## Phase 2: Realism features

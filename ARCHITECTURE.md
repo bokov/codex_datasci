@@ -10,8 +10,8 @@
    - Executes node logic via uniform interface.
 4. **State Store**
    - Holds shared simulation state and node-local state.
-5. **Event Bus / Routing Layer**
-   - Handles push/pull routing semantics.
+5. **Inter-node Input Mapping Layer**
+   - Resolves declared log-table input dependencies between nodes.
 6. **Capture Layer**
    - Configurable observation taps for logs/tables.
 7. **Transformation Layer**
@@ -52,3 +52,10 @@
 - Use `jsonlite`/`yaml` for scenario and manifest serialization.
 - Use `checkmate` for runtime input validation and `cli`/`glue` for consistent diagnostics.
 - Use `withr` and explicit seeding patterns for deterministic run behavior.
+
+## Maintenance-focused architecture constraints
+- Keep the custom runtime thin: orchestration + validation + logging only.
+- Use declared log-table input mapping as the sole MVP inter-node protocol.
+- Use one evaluator implementation (`rlang` tidy-eval) to avoid parallel execution paths.
+- Share one canonical symbol registry between config validator and runtime context assembly.
+- Enforce scalar-per-expression contract before writing log rows.
