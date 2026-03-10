@@ -1,21 +1,27 @@
 # Tasks
 
 ## Now
-- [ ] Confirm MVP domain (e.g., supply chain, clinical trials, e-commerce).
+- [x] Finalize Easter egg factory v0 boundaries (`DOMAIN_EASTER_EGG_FACTORY_V0.md`).
+- [x] Finalize v0 node and test contracts (`TEST_CONTRACT_EASTER_EGG_FACTORY_V0.md`).
+- [x] Confirm MVP domain (Easter egg factory).
 - [x] Choose implementation language/runtime (R).
-- [ ] Define v0 scenario config schema.
+- [x] Define v0 scenario config schema (`CONFIG_SCHEMA_EASTER_EGG_FACTORY_V0.md`).
 - [ ] Create dependency lock strategy (e.g., `renv`) and base project scaffold.
 - [ ] Add baseline package imports (`dplyr`, `rio`, `tidyr`, `purrr`, `testthat`).
 - [ ] Define v0 state-log schema and run manifest schema.
-- [ ] Implement minimal runner skeleton.
-- [ ] Implement expression-configured node runtime (no bespoke per-node imperative classes).
-- [ ] Implement declared inter-node log-table input mapping as the only MVP communication mode.
-- [ ] Implement single evaluator path using `rlang` tidy-eval.
-- [ ] Implement canonical symbol registry shared by validator and runtime.
-- [ ] Enforce scalar-per-expression outputs with actionable errors.
-- [ ] Implement first three nodes with full-state logging support.
+- [x] Implement minimal runner skeleton.
+- [x] Implement expression-configured node runtime (no bespoke per-node imperative classes).
+- [x] Implement declared inter-node log-table input mapping as the only MVP communication mode.
+- [x] Implement single evaluator path using `rlang` tidy-eval.
+- [x] Implement canonical symbol registry shared by validator and runtime.
+- [x] Add mini validator test harness during validator skeleton implementation.
+- [x] Enforce scalar-per-expression outputs with actionable errors.
+- [x] Add mini runner replay/scalar test harness during runner skeleton implementation.
+- [x] Implement first three nodes with full-state logging support.
 
 ## Next
+- [x] Convert skeleton scripts into package-style exported functions + baseline package checks.
+- [ ] Add richer invariant tests for staffing and inventory policies in the end-to-end scenario.
 - [ ] Add reproducibility test harness (seed replay tests).
 - [ ] Add data quality perturbation module (post-MVP).
 - [ ] Add one instructor-facing exercise package.
