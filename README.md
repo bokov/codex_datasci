@@ -68,6 +68,9 @@ Build/check commands from repo root:
 Run test suite directly:
 - `Rscript tests/testthat.R`
 
+Read the new vignette walkthrough:
+- `vignette("extending-easter-egg-factory", package = "codexdatasci")`
+
 CI coverage:
 - Weekly scheduled GitHub Actions run (`.github/workflows/weekly-tests.yml`) executes `Rscript tests/testthat.R` against latest dependencies.
 

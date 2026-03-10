@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+- Implemented full v0 scenario node set in runnable config and examples (`supplier_batches`, `inventory`, `reorder_policy`, `operator_shifts`, `machine_config`, `staffing`, `production`) with required ID-bearing outputs.
+- Activated and expanded domain invariant tests for staffing and inventory policies (operator exclusivity, staffing bounds, zero-output-without-staff, inventory nonnegativity, reorder threshold behavior).
+- Added seed divergence replay test and unknown inter-node source-column validator test.
+- Fixed validator and runner issues found by `R CMD check` (self-reference symbol validation for same-row expressions, input-alias precedence, and runtime access to `runif`).
 - Added dependency-workflow guidance and documented v0 state-log/run-manifest schemas.
 - Added a v0 implementation checkpoint defining required node/ID/invariant acceptance before full feature build-out.
 - Added pending (skipped) domain invariant/ID tests to drive test-first implementation of the full v0 scenario.

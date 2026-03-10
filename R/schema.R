@@ -18,6 +18,18 @@ validate_config_shape <- function(config) {
     stop("`nodes` must be a named list keyed by node id")
   }
 
+  if (!is.character(config$node_order) || length(config$node_order) == 0) {
+    stop("`node_order` must be a non-empty character vector")
+  }
+
+  if (!setequal(config$node_order, names(config$nodes))) {
+    stop("`node_order` must contain exactly the same node ids as `nodes`")
+  }
+
+  if (!is.list(config$node_state_fields)) {
+    stop("`node_state_fields` must be a named list keyed by node id")
+  }
+
   for (node_id in names(config$nodes)) {
     node <- config$nodes[[node_id]]
     if (is.null(node$expressions) || !is.list(node$expressions) || length(node$expressions) == 0) {
@@ -29,7 +41,17 @@ validate_config_shape <- function(config) {
     if (!all(vapply(node$expressions, is.character, logical(1)))) {
       stop(sprintf("Node `%s` expressions must be character strings", node_id))
     }
+
+    fields <- config$node_state_fields[[node_id]]
+    if (is.null(fields) || !is.character(fields)) {
+      stop(sprintf("`node_state_fields[[%s]]` must be a character vector", node_id))
+    }
+
     if (is.null(node$inputs)) node$inputs <- list()
+    if (!is.list(node$inputs)) {
+      stop(sprintf("Node `%s` inputs must be a named list", node_id))
+    }
+
     config$nodes[[node_id]] <- node
   }
 

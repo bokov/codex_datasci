@@ -15,13 +15,15 @@ run_simulation(config, init_global_state = list(), init_node_state = list())
 cfg <- easter_egg_factory_v0_config()
 logs <- run_simulation(
   cfg,
-  init_global_state = list(reorder_threshold = 5, base_rate = 3),
+  init_global_state = list(reorder_threshold = 10, base_rate = 3),
   init_node_state = list(
-    supplier_batches = list(supplier_bias = 1),
-    inventory = list(start_qty = 8),
-    operator_shifts = list(shift_length = 2),
+    supplier_batches = list(n_suppliers = 3, n_ingredients = 3),
+    inventory = list(start_qty = 20),
+    reorder_policy = list(reorder_buffer = 6),
+    operator_shifts = list(n_operators = 3),
+    machine_config = list(n_machines = 3),
     staffing = list(max_ops_per_machine = 3),
-    production = list(machine_quality = 0.9)
+    production = list(quality_floor = 0.75)
   )
 )
 head(logs$production)

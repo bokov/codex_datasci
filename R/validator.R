@@ -3,10 +3,13 @@
 builtin_symbols <- function() {
   c(
     # context symbols
-    "tick", "global_state", "node_state", "inputs", "node_log_history",
+    "tick", "global_state", "node_state", "inputs", "node_log_history", "prev",
+    # logical constants
+    "TRUE", "FALSE", "NA",
     # utility/base functions commonly used in expressions
     "ifelse", "pmax", "pmin", "round", "min", "max", "mean", "sum",
-    "length", "as.numeric", "as.integer", "as.character", "abs"
+    "length", "as.numeric", "as.integer", "as.character", "abs",
+    "is.na", "paste", "paste0", "c"
   )
 }
 
@@ -22,15 +25,11 @@ build_symbol_registry <- function(config, node_id) {
   input_aliases <- names(node$inputs)
   if (is.null(input_aliases)) input_aliases <- character(0)
 
-  expr_names <- names(node$expressions)
-
   unique(c(
     builtin_symbols(),
     config$global_state_fields,
     node_state_fields,
-    input_aliases,
-    expr_names,
-    "prev"
+    input_aliases
   ))
 }
 
@@ -38,10 +37,46 @@ suggestion_for_symbol <- function(sym, registry, node) {
   if (length(grep("^input_", sym)) > 0 || (!(sym %in% registry) && length(node$inputs) > 0)) {
     return("Declare this symbol as an input alias under node$inputs or fix alias spelling")
   }
-  if (!(sym %in% registry) && sym %in% names(node$expressions)) {
-    return("Expression names are available only after definition order; reorder expressions")
-  }
   "Add symbol to global/node state fields, declare as input alias, or correct expression spelling"
+}
+
+validate_input_contracts <- function(config) {
+  errors <- list()
+
+  for (node_id in config$node_order) {
+    node <- config$nodes[[node_id]]
+    if (is.null(node$inputs) || length(node$inputs) == 0) next
+
+    for (alias in names(node$inputs)) {
+      spec <- node$inputs[[alias]]
+      src_node <- spec$node
+      src_col <- spec$column
+
+      if (is.null(config$nodes[[src_node]])) {
+        errors[[length(errors) + 1]] <- list(
+          node_id = node_id,
+          expression = alias,
+          symbol = src_node,
+          reason = "unknown_input_source_node",
+          suggestion = "Declare an existing source node id under node$inputs[[alias]]$node"
+        )
+        next
+      }
+
+      src_expr_names <- names(config$nodes[[src_node]]$expressions)
+      if (!(src_col %in% src_expr_names)) {
+        errors[[length(errors) + 1]] <- list(
+          node_id = node_id,
+          expression = alias,
+          symbol = src_col,
+          reason = "unknown_input_source_column",
+          suggestion = "Reference an output expression name produced by the source node"
+        )
+      }
+    }
+  }
+
+  errors
 }
 
 validate_config_symbols <- function(config) {
@@ -49,6 +84,11 @@ validate_config_symbols <- function(config) {
 
   errors <- list()
   registry_by_node <- list()
+
+  input_contract_errors <- validate_input_contracts(config)
+  if (length(input_contract_errors) > 0) {
+    errors <- c(errors, input_contract_errors)
+  }
 
   for (node_id in config$node_order) {
     node <- config$nodes[[node_id]]
@@ -60,7 +100,7 @@ validate_config_symbols <- function(config) {
       expr_text <- node$expressions[[expr_name]]
       symbols <- extract_symbols(expr_text)
 
-      allowed <- unique(c(registry, defined_so_far))
+      allowed <- unique(c(registry, defined_so_far, expr_name))
       unknown <- setdiff(symbols, allowed)
 
       if (length(unknown) > 0) {

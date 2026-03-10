@@ -47,14 +47,15 @@ eval_node_row <- function(config, node_id, tick, global_state, node_state, logs_
     eval_env$inputs <- inputs
     eval_env$prev <- row
     eval_env$tail <- utils::tail
+    eval_env$runif <- stats::runif
 
-    # expose prior expression values in same row
-    if (length(row) > 0) {
-      for (nm in names(row)) eval_env[[nm]] <- row[[nm]]
-    }
     # expose inputs as top-level aliases for concise expressions
     if (length(inputs) > 0) {
       for (nm in names(inputs)) eval_env[[nm]] <- inputs[[nm]]
+    }
+    # expose prior expression values in same row (takes precedence over inputs aliases)
+    if (length(row) > 0) {
+      for (nm in names(row)) eval_env[[nm]] <- row[[nm]]
     }
 
     val <- eval(parse(text = expr_text), envir = eval_env)
@@ -93,9 +94,23 @@ run_simulation <- function(config, init_global_state = list(), init_node_state =
       if (is.null(logs_by_node[[node_id]])) {
         logs_by_node[[node_id]] <- row
       } else {
-        logs_by_node[[node_id]] <- rbind(logs_by_node[[node_id]], row)
+        logs_by_node[[node_id]] <- dplyr::bind_rows(logs_by_node[[node_id]], row)
       }
     }
+  }
+
+
+  if (!is.null(config$export_dir)) {
+    purrr::iwalk(logs_by_node, function(df, node_nm) {
+      rio::export(df, file = file.path(config$export_dir, paste0(node_nm, ".csv")))
+    })
+  }
+
+  if (isTRUE(config$emit_long_log)) {
+    logs_by_node$long_log <- purrr::imap_dfr(logs_by_node, function(df, node_nm) {
+      df$node_id <- node_nm
+      tidyr::pivot_longer(df, cols = -c(tick, node_id), names_to = "field", values_to = "value")
+    })
   }
 
   logs_by_node
