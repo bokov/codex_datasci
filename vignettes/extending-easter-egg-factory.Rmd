@@ -1,0 +1,150 @@
+---
+title: "Using and Extending the Easter Egg Factory Example"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using and Extending the Easter Egg Factory Example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+## Overview
+
+This vignette shows how to:
+
+1. run the built-in `easter_egg_factory_v0_config()` scenario,
+2. inspect node logs, and
+3. extend the example with:
+   - an additional supplier,
+   - an additional egg recipe,
+   - a new machine operator,
+   - a new machine.
+
+```{r setup}
+library(codexdatasci)
+```
+
+## 1) Run the base example configuration
+
+```{r base-config}
+cfg <- easter_egg_factory_v0_config()
+
+shape_ok <- validate_config_shape(cfg)
+symbols <- validate_config_symbols(cfg)
+
+shape_ok
+symbols$ok
+```
+
+Provide required global state and node state inputs, then run.
+
+```{r run-base}
+init_global_state <- list(
+  reorder_threshold = 20,
+  base_rate = 6
+)
+
+init_node_state <- list(
+  supplier_batches = list(n_suppliers = 3, n_ingredients = 3),
+  inventory = list(start_qty = 30),
+  reorder_policy = list(reorder_buffer = 10),
+  operator_shifts = list(n_operators = 3),
+  machine_config = list(n_machines = 3),
+  staffing = list(max_ops_per_machine = 1),
+  production = list(quality_floor = 0.75)
+)
+
+logs <- run_simulation(
+  config = cfg,
+  init_global_state = init_global_state,
+  init_node_state = init_node_state
+)
+
+names(logs)
+```
+
+Inspect a few rows from the machine and production logs.
+
+```{r inspect-base}
+head(logs$machine_config, 6)
+head(logs$production, 6)
+```
+
+## 2) Extend the scenario
+
+To extend the scenario, we update both state counts and the relevant node
+expressions.
+
+### 2.1 Add one supplier and one operator
+
+We will move from 3 to 4 suppliers/operators by changing node state values.
+
+### 2.2 Add one egg recipe and one machine
+
+We will move from 3 to 4 machines and add a fourth recipe:
+
+- `ruby_caramel` using `ING1+ING4`.
+
+Because this recipe uses a new ingredient (`ING4`), we also increase the
+ingredient pool from 3 to 4.
+
+```{r extend-config}
+ext_cfg <- easter_egg_factory_v0_config()
+
+# Add a 4th supplier profile (SUP4) for price and quality behavior.
+ext_cfg$nodes$supplier_batches$expressions$batch_price <-
+  "ifelse(supplier_id == 'SUP1', 1.2, ifelse(supplier_id == 'SUP2', 1.1, ifelse(supplier_id == 'SUP3', 1.0, 0.98)))"
+ext_cfg$nodes$supplier_batches$expressions$batch_quality <-
+  "ifelse(supplier_id == 'SUP1', 0.95, ifelse(supplier_id == 'SUP2', 0.90, ifelse(supplier_id == 'SUP3', 0.86, 0.91))) + runif(1, -0.01, 0.01)"
+
+# Add M4 and a new recipe (ruby_caramel).
+ext_cfg$nodes$machine_config$expressions$egg_type <-
+  "ifelse(machine_id == 'M1', 'dark_truffle', ifelse(machine_id == 'M2', 'milk_hazelnut', ifelse(machine_id == 'M3', 'white_berry', 'ruby_caramel')))"
+ext_cfg$nodes$machine_config$expressions$machine_quality <-
+  "ifelse(machine_id == 'M1', 0.93, ifelse(machine_id == 'M2', 0.89, ifelse(machine_id == 'M3', 0.87, 0.91)))"
+ext_cfg$nodes$machine_config$expressions$required_ingredients <-
+  "ifelse(egg_type == 'dark_truffle', 'ING1+ING2', ifelse(egg_type == 'milk_hazelnut', 'ING2+ING3', ifelse(egg_type == 'white_berry', 'ING1+ING3', 'ING1+ING4')))"
+
+# Add OP4 quality profile.
+ext_cfg$nodes$operator_shifts$expressions$operator_quality <-
+  "ifelse(operator_id == 'OP1', 0.92, ifelse(operator_id == 'OP2', 0.88, ifelse(operator_id == 'OP3', 0.84, 0.90)))"
+
+ext_symbols <- validate_config_symbols(ext_cfg)
+ext_symbols$ok
+```
+
+Now run the extended configuration with updated node state counts.
+
+```{r run-extended}
+ext_node_state <- list(
+  supplier_batches = list(n_suppliers = 4, n_ingredients = 4),
+  inventory = list(start_qty = 30),
+  reorder_policy = list(reorder_buffer = 10),
+  operator_shifts = list(n_operators = 4),
+  machine_config = list(n_machines = 4),
+  staffing = list(max_ops_per_machine = 1),
+  production = list(quality_floor = 0.75)
+)
+
+ext_logs <- run_simulation(
+  config = ext_cfg,
+  init_global_state = init_global_state,
+  init_node_state = ext_node_state
+)
+```
+
+## 3) Verify the new entities appear
+
+```{r verify-extensions}
+unique(ext_logs$supplier_batches$supplier_id)
+unique(ext_logs$operator_shifts$operator_id)
+unique(ext_logs$machine_config$machine_id)
+unique(ext_logs$machine_config$egg_type)
+unique(ext_logs$machine_config$required_ingredients)
+```
+
+You should see `SUP4`, `OP4`, `M4`, and the new recipe `ruby_caramel` with
+`ING1+ING4` in the output.
