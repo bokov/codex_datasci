@@ -1,0 +1,19 @@
+Package: codexdatasci
+Type: Package
+Title: Deterministic Node-Expression Synthetic Data Simulation
+Version: 0.1.0
+Authors@R: person(given = "Project", family = "Contributors", role = c("aut", "cre"), email = "noreply@example.com")
+Author: Project Contributors [aut, cre]
+Maintainer: Project Contributors <noreply@example.com>
+Description: Expression-driven deterministic simulation runner for node-based
+    synthetic data generation, including config schema validation,
+    symbol-resolution checks, and reproducible tick-based execution.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports:
+    utils
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

@@ -1,0 +1,5 @@
+export(easter_egg_factory_v0_config)
+export(invalid_easter_egg_config)
+export(run_simulation)
+export(validate_config_shape)
+export(validate_config_symbols)
