@@ -1,14 +1,15 @@
 # Tasks
 
 ## Now
+- [x] Note: renv workflow uses explicit snapshotting to avoid lockfile bloat and brittle incidental pins.
 - [x] Finalize Easter egg factory v0 boundaries (`DOMAIN_EASTER_EGG_FACTORY_V0.md`).
 - [x] Finalize v0 node and test contracts (`TEST_CONTRACT_EASTER_EGG_FACTORY_V0.md`).
 - [x] Confirm MVP domain (Easter egg factory).
 - [x] Choose implementation language/runtime (R).
 - [x] Define v0 scenario config schema (`CONFIG_SCHEMA_EASTER_EGG_FACTORY_V0.md`).
-- [ ] Create dependency lock strategy (e.g., `renv`) and base project scaffold.
-- [ ] Add baseline package imports (`dplyr`, `rio`, `tidyr`, `purrr`, `testthat`).
-- [ ] Define v0 state-log schema and run manifest schema.
+- [x] Create dependency lock strategy (`renv` workflow documented in `REPRODUCIBILITY_WORKFLOW.md`).
+- [x] Add baseline package imports (`dplyr`, `rio`, `tidyr`, `purrr`, `testthat`) in package metadata.
+- [x] Define v0 state-log schema and run manifest schema (`STATE_LOG_AND_MANIFEST_V0.md`).
 - [x] Implement minimal runner skeleton.
 - [x] Implement expression-configured node runtime (no bespoke per-node imperative classes).
 - [x] Implement declared inter-node log-table input mapping as the only MVP communication mode.

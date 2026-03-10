@@ -49,6 +49,8 @@ The current MVP execution plan is grounded in the Easter egg factory v0 domain c
 - `SIMULATION_SPEC.md` — simulation semantics (nodes, ticks, state, reproducibility).
 - `ROADMAP.md` — phase-by-phase delivery plan.
 - `TASKS.md` — actionable to-do list.
+- `REPRODUCIBILITY_WORKFLOW.md` — practical renv + package dependency workflow.
+- `STATE_LOG_AND_MANIFEST_V0.md` — concrete v0 logging and run-manifest schema.
 - `DOMAIN_EASTER_EGG_FACTORY_V0.md` — fixed v0 domain boundaries and node contract table.
 - `TEST_CONTRACT_EASTER_EGG_FACTORY_V0.md` — step-linked test obligations and done criteria.
 - `CONFIG_SCHEMA_EASTER_EGG_FACTORY_V0.md` — v0 configuration schema and valid/invalid examples.
